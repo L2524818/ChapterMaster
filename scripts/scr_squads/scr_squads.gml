@@ -580,7 +580,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 		var remove_sgt;
 		if (sgt!="none"){
 			remove_sgt = fetch_unit(sgt);
-			if (remove_sgt.IsSpecialist("squad_leaders")){
+			if (remove_sgt.IsSpecialist(SPECIALISTS_SQUAD_LEADERS)){
 				var replace_role = remove_sgt.role();
 				remove_sgt.update_role(new_sgt.role());
 				//TODO centralise loyalty changes for role changes in the update_role method
@@ -651,14 +651,14 @@ function game_start_squads(){
 		create_squad("command_squad", company);
 		last_squad_count = array_length(obj_ini.squads);
 		while (last_squad_count == array_length(obj_ini.squads)){ ///keep making tact squads for as long as there are enough tact marines
-			if (scr_has_adv("Lightning Warriors")) {
+			if (scr_has_adv("Boarders")) {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				if(last_squad_count%2 == 0){		
 					create_squad("tactical_squad", company);
 				}else{
-					create_squad("bikers", company);
+					create_squad("breachers", company);
 				}
-			}else{
+			} else {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				create_squad("tactical_squad", company);
 			}
@@ -670,14 +670,14 @@ function game_start_squads(){
 		}		
 		last_squad_count = array_length(obj_ini.squads);
 		while (last_squad_count == array_length(obj_ini.squads)){
-			if (scr_has_adv("Boarders")) {
+			if (scr_has_adv("Lightning Warriors")) {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				if(last_squad_count%2 == 0){		
 					create_squad("assault_squad", company);
 				}else{
-					create_squad("breachers", company);
+					create_squad("bikers", company);
 				}
-			}else{
+			} else {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				create_squad("assault_squad", company);
 			}

@@ -12,7 +12,7 @@ global.weapons = {
 			"master_crafted": 10,
 			"artifact": 12
 		},
-		"melee_hands": 0.9,
+		"melee_hands": 0.75,
 		"ranged_hands": 1,
 		"tags": ["shield","boarding 2"],
 		"hp_mod": {
@@ -29,7 +29,7 @@ global.weapons = {
 			"master_crafted": 5,
 			"artifact": 6
 		},
-		"melee_hands": 0.9,
+		"melee_hands": 0.75,
 		"tags": ["shield","boarding 3"],
 		"hp_mod": {
 			"standard": 15,
@@ -1653,7 +1653,9 @@ global.weapons = {
 		"range": 1,
 		"spli": 5,
 		"arp": 2,
-		"special_description": "Spell Damage +100%",
+		"specials": {
+			"psychic_amplification": 25
+		},
 		"maintenance" : 0.1,
 		"tags": ["force"]
 	},
@@ -1699,7 +1701,7 @@ global.weapons = {
 		"range": 1,
 		"spli": 3,
 		"arp": 2,
-		"special_description": "Able to be dual-wielded, Spell damage +25%",
+		"special_description": "Able to be dual-wielded",
 		"tags": ["force", "axe", "dual", "savage", "boarding 2"],
 	},
 	"Twin Linked Lascannon Turret": {
@@ -1871,7 +1873,7 @@ global.weapons = {
 			"artifact": 45
 		},
 		"description": "A smaller variant of Bolter, intended to be useable by unaugmented humans.",
-		"melee_hands": 0,
+		"melee_hands": 1,
 		"ranged_hands": 1,
 		"ammo": 16,
 		"range": 10,
@@ -2490,15 +2492,14 @@ global.gear = {
 				"master_crafted": 5,
 				"artifact": 10
 			},
-			"tags": ["power_armour"],
 		},
 	// Sororitas and other imperials
-		"Light Power Armour": { // According to lore, lack of black carapace makes regular humans less capable to use PAs properly, but this is a concern for the future
+		"Light Power Armour": {
 			"abbreviation": "LPwrArm",
 			"armour_value": {
-				"standard": 14,
-				"master_crafted": 16,
-				"artifact": 18
+				"standard": 13,
+				"master_crafted": 15,
+				"artifact": 17
 			},
 			"ranged_mod": {
 				"standard": 0,
@@ -2511,7 +2512,25 @@ global.gear = {
 				"artifact": 10
 			},
 			"description": "A suit of light power armour, intended to be useable by the regular humans.",
-			"tags": ["power_armour"],
+		},
+		"Sororitas Power Armour": {
+			"abbreviation": "SrPwrArm",
+			"armour_value": {
+				"standard": 14,
+				"master_crafted": 16,
+				"artifact": 18
+			},
+			"ranged_mod": {
+				"standard": 5,
+				"master_crafted": 10,
+				"artifact": 15
+			},
+			"melee_mod": {
+				"standard": 0,
+				"master_crafted": 5,
+				"artifact": 10
+			},
+			"description": "Lighter than most suits, thanks to plug ports that link the Sister's musculature directly to the enhanced fibre bundle network, while providing excellent protection. Helmet has an integrated targeter."
 		},
 	// Eldar
 		"Ranger Armour":{
@@ -2582,12 +2601,9 @@ global.gear = {
 		},
 		"Psychic Hood": {
 			"abbreviation": "PsyHd",
-			"special_properties": ["Perils Protection 50"], // I am curious if it is possible to raise the protection, if it's master crafted or artifact quality
 			"description": "An arcane hood that protects Psykers from enemy psychic powers and enhances control of their psychic abilities.",
-			"damage_resistance_mod": {
-				"standard": 0, // Adjusted
-				"master_crafted": 5, // Adjusted
-				"artifact": 10 // Adjusted
+			"specials": {
+				"psychic_focus": 15
 			},
 		},
 		"Rosarius": {
@@ -2608,15 +2624,10 @@ global.gear = {
 			"abbreviation": "IrnHalo",
 			"description": "An ancient artifact, these powerful conversion field generators are granted to high ranking battle brothers or heroes of the chapter. Bearers are often looked to for guidance by their fellow Astartes.",
 			"damage_resistance_mod": {
-				"standard": 10, // Adjusted
-				"master_crafted": 15, // Adjusted
-				"artifact": 20 // Adjusted
+				"standard": 35, // Adjusted
+				"master_crafted": 40, // Adjusted
+				"artifact": 45 // Adjusted
 			},
-			"hp_mod": {
-				"standard": 20, // Adjusted
-				"master_crafted": 25, // Adjusted
-				"artifact": 30 // Adjusted
-			}
 		},
 		"Combat Shield": {
 			"description": "A lighter, more maneuverable version of a Storm Shield. Due to its flexibility, Combat Shields leave other hand of a Space Marine free to use other hand-to-hand weaponry.",
@@ -2696,7 +2707,7 @@ global.gear = {
 	"mobility": {
 		"Bike": {
 			"abbreviation": "Bike",
-			"special_properties": ["Integrated Twin Linked-Bolters"],
+			"second_profiles": ["Twin Linked Bolters"],
 			"description": "A robust bike that can propel an Astartes at very high speeds. Boasts highly responsive controls that allow for fluid movement on the battlefield and and respectable Twin-Linked Bolters for offensive action.",
 			"hp_mod": {
 				"standard": 25,
@@ -2711,16 +2722,12 @@ global.gear = {
 		},
 		"Jump Pack": {
 			"abbreviation": "JmpPck",
+			"special_properties": ["Hammer of Wrath"],
 			"description": "A back-mounted device containing jets powerful enough to lift an Astartes in Power Armor over great distances. Utilizing these, Assault Marines bring devastation to the foe.",
-			"hp_mod": {
-				"standard": 10,
-				"master_crafted": 15,
-				"artifact": 20
-			},
 			"damage_resistance_mod": {
-				"standard": 20,
-				"master_crafted": 25,
-				"artifact": 30
+				"standard": 25,
+				"master_crafted": 30,
+				"artifact": 35
 			},
 			"tags": ["jump"],
 		},
@@ -2816,6 +2823,3 @@ global.gear = {
                       descr="A Predator-compatible turret housing a neutron blaster; a weapon from the Dark Age of Technology, this weapon is capable of destroying enemy armour with impunity. ";}
                 if (thawep="Volkite Saker Turret"){attack=400;arp=0;range=18;amm=50;spli=1;
                         descr="A Predator-compatible turret housing a Volkite Saker, capable of igniting entire formations of enemy forces with a single sweep. ";}
-
-
-

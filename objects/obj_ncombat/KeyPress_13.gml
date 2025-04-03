@@ -15,12 +15,14 @@ if __b__
 // 135;
 // instance_activate_object(obj_cursor);
 
-
+if (enemy_forces<=0) { // Combat for whatever reason sometimes bugs out when there are no enemies, so if enter is pressed 6 times at this state it will set started to 2
+    enter_pressed++
+}
 
 if (started>=2) then instance_activate_object(obj_pnunit);
 
 if (started=3){
-    show_debug_message("start alarm7 runup");
+
     instance_activate_all();
     instance_activate_object(obj_pnunit);
     instance_activate_object(obj_enunit);
@@ -38,7 +40,7 @@ if (started=3){
 
 
 
-if (turn_count >= 50){
+if (turn_count >= 50 || enter_pressed > 5) {
     started=2;
 }
 if ((started=2) or (started=4)){
@@ -47,11 +49,8 @@ if ((started=2) or (started=4)){
     // started=3;alarm[5]=3;obj_pnunit.alarm[4]=1;obj_pnunit.alarm[5]=2;obj_enunit.alarm[1]=3;
     started=3;
     // obj_pnunit.alarm[4]=2;obj_pnunit.alarm[5]=3;obj_enunit.alarm[1]=1;
-    if (instance_exists(obj_pnunit)){
-        obj_pnunit.alarm[4]=2;
-        obj_pnunit.alarm[5]=3;
-    }
-    total_battle_exp_gain = threat * 50;
+    var _quad_factor = 10;
+    total_battle_exp_gain = _quad_factor * sqr(threat);
     if (instance_exists(obj_enunit)){obj_enunit.alarm[1]=1;}
     instance_activate_object(obj_star);
     instance_activate_object(obj_event_log);
@@ -85,7 +84,7 @@ if (started>0){// This might be causing problems?
 
 
 if (timer_stage=1) or (timer_stage=5){
-    if (global_perils>0) then global_perils-=4;
+    if (global_perils>0) then global_perils-=1;
     if (global_perils<0) then global_perils=0;
     turns+=1;
     
@@ -104,6 +103,7 @@ if (timer_stage=1) or (timer_stage=5){
     else if (enemy==6){
         if (instance_exists(obj_enunit)){
             obj_enunit.alarm[1]=2;
+            move_enemy_blocks();
             obj_enunit.alarm[0]=3;
         }
         if (instance_exists(obj_pnunit)){
@@ -130,6 +130,7 @@ else if (timer_stage=3){
         }
         if (instance_exists(obj_enunit)){
             obj_enunit.alarm[1]=2;
+            move_enemy_blocks();
             obj_enunit.alarm[0]=3;
             obj_enunit.alarm[8]=4;
             turns+=1;

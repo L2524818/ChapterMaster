@@ -59,10 +59,15 @@
         "flavour_text": "Walks in the footsteps of the Primarchs of old",
         "display_name": "Paragon"
     },
-    "warp_touched": {
-        "intelligence": 4,
+    "favoured_by_the_warp": {
+        "wisdom": 4,
+        "flavour_text": "Warp powers favour this marine for some reason",
+        "display_name": "Favoured By The Warp"
+    },
+    "warp_tainted": {
+        "luck": -2,
         "flavour_text": "Interacted with the warp in a way that has forever marked them",
-        "display_name": "Warp Touched"
+        "display_name": "Warp Tainted"
     },
     "lucky": {
         "luck": 4,
@@ -90,8 +95,8 @@
         "luck": 1,
         "constitution": 1,
         "strength": 1,
-        "weapon_skill": 1,
-        "ballistic_skill": 1,
+        "weapon_skill": 2,
+        "ballistic_skill": 2,
         "flavour_text": "A seasoned warrior, having fought for many years",
         "display_name": "Seasoned"
     },
@@ -566,10 +571,6 @@
             -3,
             2
         ],
-        "piety": [
-            3,
-            1
-        ]
     },
     "technophobe": {
         "display_name": "Technophobe",
@@ -712,7 +713,8 @@
     "duelist": {
         "weapon_skill": [
             2,
-            2
+            2,
+            "max"
         ],
         "display_name": "Duelist",
         "flavour_text": "a superlative duelist favoring traditional dueling weaponry",
@@ -739,8 +741,8 @@
             "max"
         ],
         "charisma": [
-            3,
             2,
+            1,
             "max"
         ],
         "intelligence": [
@@ -750,7 +752,6 @@
         "strength": [
             -2,
             2,
-            "min"
         ],
         "display_name": "Student of war",
         "flavour_text": "The sons of Guilliman are equally elite warriors and learned statesman"

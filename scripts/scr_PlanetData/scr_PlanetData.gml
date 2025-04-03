@@ -13,10 +13,10 @@ function PlanetData(planet, system) constructor{
     }
 //
 
-	self.planet = planet;
-	self.system = system;
-	player_disposition = system.dispo[planet];
-	planet_type = system.p_type[planet];
+    self.planet = planet;
+    self.system = system;
+    player_disposition = system.dispo[planet];
+    planet_type = system.p_type[planet];
     operatives = system.p_operatives[planet];
     features =system.p_feature[planet];
     current_owner = system.p_owner[planet];
@@ -27,6 +27,10 @@ function PlanetData(planet, system) constructor{
     secondary_population = system.p_pop[planet];
     is_craftworld = system.craftworld;
     is_hulk = system.space_hulk;
+
+    static set_player_disposition = function(){
+        system.dispo[planet] = player_disposition;
+    }
 
     static display_population = function(){
     	if (large_population){
@@ -108,8 +112,14 @@ function PlanetData(planet, system) constructor{
         }
     }
 
+
     corruption = system.p_heresy[planet];
 
+    static alter_corruption = function(value){
+    	alter_planet_corruption(value, planet, system);
+    	corruption = system.p_heresy[planet];
+    }
+    
     is_heretic = system.p_hurssy[planet];
 
     heretic_timer = system.p_hurssy_time[planet];
@@ -129,6 +139,7 @@ function PlanetData(planet, system) constructor{
     static has_problem = function(problem){
     	has_problem_planet(planet, problem, system);
     }
+
 
     static name = function(){
     	var _name="";
@@ -455,18 +466,18 @@ function PlanetData(planet, system) constructor{
         draw_set_color(c_gray);
         draw_rectangle(xx+349,yy+175,xx+717,yy+192,1);
         draw_set_color(c_white);
-        
-        var player_dispo = player_disposition;
+
+
         if (!_succession){
-            if (player_dispo>=0) and (origional_owner<=5) and (current_owner<=5) and (population>0) then draw_text(xx+534,yy+176,"Disposition: "+string(min(100,player_dispo))+"/100");
-            if (player_dispo>-30) and (player_dispo<0) and (current_owner<=5) and (population>0){
+            if (player_disposition>=0) and (origional_owner<=5) and (current_owner<=5) and (population>0) then draw_text(xx+534,yy+176,"Disposition: "+string(min(100,player_disposition))+"/100");
+            if (player_disposition>-30) and (player_disposition<0) and (current_owner<=5) and (population>0){
                 draw_text(xx+534,yy+176,"Disposition: ???/100");
             }
-            if ((player_dispo>=0) and (origional_owner<=5) and (current_owner>5)) or (population<=0){
+            if ((player_disposition>=0) and (origional_owner<=5) and (current_owner>5)) or (population<=0){
                 draw_text(xx+534,yy+176,"-------------");
             }
 
-            if (player_dispo<=-3000) then draw_text(xx+534,yy+176,"Disposition: N/A");
+            if (player_disposition<=-3000) then draw_text(xx+534,yy+176,"Disposition: N/A");
         } else  if (_succession=1) then draw_text(xx+534,yy+176,"War of _Succession");
         draw_set_color(c_gray);
         // End draw disposition
@@ -575,6 +586,7 @@ function PlanetData(planet, system) constructor{
                         
                         if (player_disposition>0) and (player_disposition<=100){
                             player_disposition=min(100,player_disposition+(9-fortification_level));
+                            set_player_disposition();
                         }
                     }
                     
@@ -622,39 +634,39 @@ function PlanetData(planet, system) constructor{
         
         
         draw_set_font(fnt_40k_14b);
-        draw_text(xx+349,yy+326,"Planet Forces");
-        draw_text(xx+535,yy+326,"Planet Features");
+        draw_text(xx+349,yy+326,"Planetary Presence");
+        draw_text(xx+535,yy+326,"Planetary Features");
         draw_set_font(fnt_40k_14);
         
         
-        var temp8="",t=-1;
-        repeat(8){
-            var ahuh,ahuh2,ahuh3;ahuh="";ahuh2=0;ahuh3=0;t+=1;
-            with (system){
-                if (t=0){ahuh="Adepta Sororitas: ";ahuh2=p_sisters[current_planet];}
-                if (t=1){ahuh="Ork Presence: ";ahuh2=p_orks[current_planet];}
-                if (t=2){ahuh="Tau Presence: ";ahuh2=p_tau[current_planet];}
-                if (t=3){ahuh="Tyranid Presence: ";ahuh2=p_tyranids[current_planet];}
-                if (t=4){ahuh="Traitor Presence: ";ahuh2=p_traitors[current_planet];if (ahuh2>6) then ahuh="Daemon Presence: ";}
-                if (t=5){ahuh="CSM Presence: ";ahuh2=p_chaos[current_planet];}
-                if (t=6){ahuh="Daemon Presence: ";ahuh2=p_demons[current_planet];}
-                if (t=7){ahuh="Necron Presence: ";ahuh2=p_necrons[current_planet];}
+        var presence_text = "";
+        var faction_names = ["Adeptas", "Orks", "Tau", "Tyranids", "Chaos", "Traitors", "Daemons", "Necrons"];
+        var faction_ids = ["p_sisters", "p_orks", "p_tau", "p_tyranids", "p_traitors", "p_chaos", "p_demons", "p_necrons"];
+        var blurbs = ["Minima", "Parvus", "Moderatus", "Significus", "Enormicus", "Extremis"];
+        
+        for (var t = 0; t < array_length(faction_names); t++) {
+            var faction = faction_names[t];
+            var faction_id = faction_ids[t];
+            var level = system[$ faction_id][current_planet];
+            var blurb = "";
+
+            // Special condition for "Cultists" -> "Daemons"
+            if (faction_id == "p_chaos" && level > 6) {
+                faction = "Daemons";
             }
-            
-            if (t!=0){
-                if (ahuh2=1) then ahuh3="Tiny";if (ahuh2=2) then ahuh3="Sparse";
-                if (ahuh2=3) then ahuh3="Moderate";if (ahuh2=4) then ahuh3="Heavy";
-                if (ahuh2=5) then ahuh3="Extreme";if (ahuh2>=6) then ahuh3="Rampant";
+
+            if (level >= 1 && level <= 6) {
+                blurb = blurbs[level - 1];
+            } else if (level > 6) {
+                blurb = blurbs[5];
             }
-            if (t=0){
-                if (ahuh2=1) then ahuh3="Very Few";if (ahuh2=2) then ahuh3="Few";
-                if (ahuh2=3) then ahuh3="Moderate";if (ahuh2=4) then ahuh3="Numerous";
-                if (ahuh2=5) then ahuh3="Very Numerous";if (ahuh2>=6) then ahuh3="Overwhelming";
+
+            if (faction != "" && level > 0) {
+                presence_text += $"{faction}: {blurb} ({level})\n";
             }
-            
-            if (ahuh!="") and (ahuh2>0) then temp8+=string(ahuh)+" "+string(ahuh3)+"#";
         }
-        draw_text(xx+349,yy+346,string_hash_to_newline(string(temp8)));
+
+        draw_text(xx+349,yy+346,string_hash_to_newline(string(presence_text)));
         
         
         var to_show=0,temp9="";t=-1;
