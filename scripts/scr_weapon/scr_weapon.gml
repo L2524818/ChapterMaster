@@ -1013,7 +1013,7 @@ global.weapons = {
 			"master_crafted": 300,
 			"artifact": 350
 		},
-		"description": "The Needle Sniper Rifle is a deadly weapon that uses both directed lasers and crystallised neurotoxic needles to dispatch enemies, commonly favoured by assasins and Astartes Scouts .",
+		"description": "The Needle Sniper Rifle is a deadly weapon that uses both directed lasers and crystallised neurotoxic needles to dispatch enemies, commonly favoured by assasins and Deathwatch scouts.",
 		"melee_hands": 1,
 		"ranged_hands": 2,
 		"ammo": 20,
