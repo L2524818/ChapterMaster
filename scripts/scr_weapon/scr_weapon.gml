@@ -621,7 +621,7 @@ global.weapons = {
 		"tags": ["bolt", "pistol", "boarding 2"],
 	},
 	"Shotgun": {
-		"abbreviation": "Shotgun",
+		"abbreviation": "Shtgn",
 		"attack": {
 			"standard": 250,
 			"master_crafted": 300,
@@ -634,8 +634,7 @@ global.weapons = {
 		"range": 4.1,
 		"spli": 8,
 		"arp": 1,
-		"maintenance" : 0.1,
-		"tags": ["bolt", "pistol", "boarding 2"],
+		"tags": ["boarding 2"],
 	},
 	"Webber": {
 		"abbreviation": "Webbr",
