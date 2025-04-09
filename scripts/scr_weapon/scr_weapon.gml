@@ -194,6 +194,28 @@ global.weapons = {
 		"special_properties": ["Parry"],
 		"tags": ["power", "spear", "martial"],
 	},
+	"Xenophase Blade": {
+		"abbreviation": "XenoPhs",
+		"attack": {
+			"standard": 190,
+			"master_crafted": 210,
+			"artifact": 250
+		},
+		"melee_mod": {
+			"standard": 1,
+			"master_crafted": 1.1,
+			"artifact": 1.2
+		},
+		"description": "A Xenophase Blade is a potent, Power Sword-like melee weapon derived from xenos technology used by select warriors of the Deathwatch Chapter who have earned by their deeds and time of service in the Long Vigil the special trust of their watch fortress' watch commander.",
+		"melee_hands": 1.1,
+		"ranged_hands": 0,
+		"ammo": 0,
+		"range": 1,
+		"spli": 4,
+		"arp": 1,
+		"special_properties": ["Parry"],
+		"tags": ["power", "sword", "xenos"],
+	},
 	"Chainfist": {
 		"abbreviation": "ChFst",
 		"attack": {
@@ -1185,6 +1207,23 @@ global.weapons = {
 		"arp": 2,
 		"tags": ["heavy_ranged", "bolt"]
 	},
+	"Infernus Heavy Bolter": {
+		"abbreviation": "InfrHvyBltr",
+		"attack": {
+			"standard": 320,
+			"master_crafted": 352,
+			"artifact": 384
+		},
+		"description": "The Deathwatch mag-clamp rare suspensor discs onto their infernus heavy bolters that reduce the weapon’s effective weight considerably. Such weapons are further bolstered by underslung heavy flamers that can incinerate those enemies that make it through the hail of explosive bolts.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 10,
+		"range": 16,
+		"spli": 6,
+		"arp": 1,
+		"second_profiles": ["Flamer"],
+		"tags": ["heavy_ranged", "combi", "bolt"]
+	},
 	"Whirlwind Missiles": {
 		"attack": {
 			"standard": 600,
@@ -1832,6 +1871,7 @@ global.weapons = {
 		"arp": 3,
 		"tags": ["vehicle","heavy_ranged", "turret", "volkite", "ancient"]
 	},
+	
 // Hireling weapons
 	// Admech
 	"Hellgun": {
